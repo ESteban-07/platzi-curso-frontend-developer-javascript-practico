@@ -531,24 +531,11 @@ function renderCategoryButtons() {
                 if (category === 'all') {
                     renderProducts(productList);
 
-                    // Updating styles for products added to cart
-                    productList.forEach((product) => {
-                        const productCardBtn = document.querySelector(
-                            `button[data-id="${product.id}"`
-                        );
-
-                        updateAddToCartBtnStyles(product, productCardBtn);
-                    });
+                    keepCartButtonsState(productList);
                 } else {
                     renderProducts(productsByCategory);
 
-                    // Updating styles for products added to cart
-                    productsByCategory.forEach((product) => {
-                        const productCardBtn = document.querySelector(
-                            `button[data-id="${product.id}"`
-                        );
-                        updateAddToCartBtnStyles(product, productCardBtn);
-                    });
+                    keepCartButtonsState(productsByCategory);
                 }
 
                 toggleActiveBtn(currentBtn, arr);
@@ -578,6 +565,20 @@ function renderCategoryButtons() {
 
         // First button active by default
         filterBtns[0].classList.add('--active-btn');
+    });
+}
+
+function keepCartButtonsState(array) {
+    array.forEach((product) => {
+        const productCard = document.querySelector(
+            `div[data-id="${product.id}"`
+        );
+
+        const productCardBtn = productCard.querySelector(
+            `button[data-id="${product.id}"`
+        );
+
+        updateAddToCartBtnStyles(product, productCardBtn);
     });
 }
 
